@@ -1,3 +1,3 @@
 # TicTacToe
-Author: *James Huynh*
+Author: *James Huynh*  
 Simple geometry
