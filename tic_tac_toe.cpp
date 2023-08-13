@@ -36,11 +36,20 @@ bool TicTacToe::isGameOver(int idx) {
 	// todo
 	int row = idx / 3;
 	int column = idx % 3;
-	
-	if ()
+	char& playerSymbol = playerSymbolMapping[playerTracker];
 
+	// row
+	if (grid[row][0] == grid[row][1] == grid[row][2])
+		return true;
+
+	// column
+	if (grid[0][column] == grid[1][column] == grid[2][column])
+		return true;
+
+	// diagonal
 	if (diagonalIdx.contains(idx)) {
-
+		if (grid[0][0] == grid[1][1] == grid[2][2] || grid[2][0] == grid[1][1] == grid[0][2])
+			return true;
 	}
 
 	return false;
@@ -71,13 +80,11 @@ void TicTacToe::startGame() {
 		int idx = stoi(input) - 1;
 
 		// update game state
-		grid[idx / 3][idx % 3] = playerTracker == 1 ? 'O' : 'X';
-		playerTracker = (playerTracker + 1) % 3;
-
-		if (playerTracker == 0) playerTracker++;
-
+		grid[idx / 3][idx % 3] = playerSymbolMapping[playerTracker];
+		playerTracker = playerTracker == 1 ? 2 : 1;
 
 		if (isGameOver(idx)) {
+			cout << format("Player {} has won!", playerTracker);
 			break;
 		}
 
