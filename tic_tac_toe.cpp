@@ -33,24 +33,24 @@ bool TicTacToe::isValidMove(int idx) {
 }
 
 bool TicTacToe::isGameOver(int idx) {
-	// todo
 	int row = idx / 3;
 	int column = idx % 3;
 	char& playerSymbol = playerSymbolMapping[playerTracker];
 
 	// row
-	if (grid[row][0] == grid[row][1] == grid[row][2])
+	if (grid[row][0] == grid[row][1] && grid[row][1] == grid[row][2])
 		return true;
 
 	// column
-	if (grid[0][column] == grid[1][column] == grid[2][column])
+	if (grid[0][column] == grid[1][column] && grid[1][column] == grid[2][column])
 		return true;
 
-	// diagonal
-	if (diagonalIdx.contains(idx)) {
-		if (grid[0][0] == grid[1][1] == grid[2][2] || grid[2][0] == grid[1][1] == grid[0][2])
-			return true;
-	}
+	// diagonals
+	if (diagonalIdxUp.contains(idx) && grid[2][0] == grid[1][1] && grid[1][1] == grid[0][2])
+		return true;
+
+	if (diagonalIdxDown.contains(idx) && grid[0][0] == grid[1][1] && grid[1][1] == grid[2][2])
+		return true;
 
 	return false;
 }
@@ -60,9 +60,9 @@ void TicTacToe::startGame() {
 
 	cout << "Type 'q' at any time to quit" << endl;
 	cout << "Player 1 is O and player 2 is X" << endl << endl;
-
+	
+	printGrid();
 	while (true) {
-		printGrid();
 		cout << "Player " << playerTracker << "'s move: ";
 		cin >> input;
 
@@ -81,14 +81,14 @@ void TicTacToe::startGame() {
 
 		// update game state
 		grid[idx / 3][idx % 3] = playerSymbolMapping[playerTracker];
-		playerTracker = playerTracker == 1 ? 2 : 1;
+		printGrid();
 
 		if (isGameOver(idx)) {
-			cout << format("Player {} has won!", playerTracker);
+			cout << format("Player {} has won!", playerTracker) <<  endl;
 			break;
 		}
 
-
-
+		playerTracker = playerTracker == 1 ? 2 : 1;
 	}
+
 }

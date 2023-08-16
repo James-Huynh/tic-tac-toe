@@ -14,7 +14,8 @@ private:
 	bool isValidMove(int idx);
 	bool isGameOver(int idx);
 	vector<vector<char>> grid;
-	set<int> diagonalIdx { 1, 3, 7, 9 };
+	set<int> diagonalIdxUp { 2, 6 };
+	set<int> diagonalIdxDown{ 0, 8 };
 	unordered_map <int, char> playerSymbolMapping {{ 1, 'O' }, { 2, 'X' }};
 
 public:
