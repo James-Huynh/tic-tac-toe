@@ -15,9 +15,11 @@ private:
 	bool isValidMove(const int& idx);
 	bool isGameOver(const int& idx);
 	vector<vector<char>> grid;
+	unordered_map<string, string> outputTextMap;
 	set<int> diagonalIdxUp { 2, 6 };
 	set<int> diagonalIdxDown { 0, 8 };
 	unordered_map <int, char> playerSymbolMapping { { 1, 'O' }, { 2, 'X' } };
+	void buildOutputText();
 
 public:
 	TicTacToe(int gridSize = 3);

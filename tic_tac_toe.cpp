@@ -13,6 +13,16 @@ TicTacToe::TicTacToe(int gridSize) {
 	for (int i = 0; i < gridSize; i++) {
 		grid.push_back(vector<char>(gridSize, '-'));
 	}
+
+	buildOutputText();
+}
+
+void TicTacToe::buildOutputText() {
+	outputTextMap["qToQuit"] = "Type 'q' at any time to quit";
+	outputTextMap["playerSymbol"] = "Player 1 is O and player 2 is X";
+	outputTextMap["invalidMove"] = "Invalid move, please enter a valid move: ";
+	outputTextMap["IndexDescription"] = "The grid cells are indexed from 1 to 9.";
+	outputTextMap["draw"] = "It's a draw! You're both winners and losers.";
 }
 
 void TicTacToe::printGrid() {
@@ -60,8 +70,8 @@ void TicTacToe::startGame() {
 	string input;
 	int idx;
 
-	cout << "Type 'q' at any time to quit" << endl;
-	cout << "Player 1 is O and player 2 is X" << endl << endl;
+	cout << outputTextMap["qToQuit"] << endl;
+	cout << outputTextMap["playerSymbol"] << endl << endl;
 
 	printGrid();
 	while (true) {
@@ -75,7 +85,7 @@ void TicTacToe::startGame() {
 
 		idx = stoi(input) - 1;
 		while (!isValidMove(idx)) {
-			cout << "Invalid move, please enter a valid move: ";
+			cout << outputTextMap["invalidMove"];
 			cin >> input;
 			idx = stoi(input) - 1;
 		}
@@ -89,6 +99,10 @@ void TicTacToe::startGame() {
 		if (isGameOver(idx)) {
 			cout << format("Player {} has won!", playerTracker) << endl;
 			break;
+		}
+
+		if (totalMoves == gridSize) {
+			cout << outputTextMap["draw"] << endl;
 		}
 
 		playerTracker = playerTracker == 1 ? 2 : 1;
